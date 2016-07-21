@@ -1,0 +1,141 @@
+//Run the program for the following:
+//1.f(x)=x³-10x²+22x+6. Start with an initial guess of x=2. What goes wrong? Try another guess.
+//2.f(x)=179.53x⁶-436.85x⁴+257.32x²-0.001. 
+//Find all three positive roots. 
+
+
+// A program to record each guess and the value of the function at the guess about the polynomials which contains 3 unknown items and 1 constant. 
+#include <iostream> 
+#include <fstream> 
+#include <stdlib.h> 
+#include <math.h> 
+#include <iomanip> 
+using namespace std; 
+double f(double x) 
+{ 
+return (x*x*x - 10 * x*x + 22 * x + 6); 
+} 
+double f1(double x) 
+{ 
+return (3 * x*x - 20*x + 22); 
+} 
+double F(double x) 
+{ double x1; 
+x1 = x - f(x) / f1(x); 
+return (x1); } 
+double c(double x) 
+{ 
+return (179.53*x*x*x*x*x*x - 436.85*x*x*x*x + 257.32*x*x -0.001); 
+} 
+double c1(double x) 
+{ 
+return (1077.18*x*x*x*x*x - 1747.4*x*x*x + 514.64*x); 
+} 
+double C(double x) 
+{ 
+double x1; 
+x1 = x - c(x) / c1(x); 
+return (x1); 
+} 
+int main(void) 
+{ 
+const char filepath[] = "C:\\CoutputFiles\\Project 6 homework.txt"; 
+const char ErrorMessage[] = "Can't open file"; 
+char zzz; 
+fstream OutStream(filepath, ios::out); 
+if (OutStream.fail()) 
+{ 
+cerr << ErrorMessage << filepath; 
+cin >> zzz; 
+exit(-1); 
+} 
+const int s = 16; // maximum number of steps. 
+const double epsilon = 10e-8; 
+double x,w,a,b; 
+int i; 
+cout << "please enter your guess answer for the polynomial x³-10x²+22x+6" << "\n\n"; 
+cin >> x; 
+if (x == 0) 
+{ 
+cout << "the number you guess should not be 0, programming terminating \n"; 
+} 
+else 
+w = x - f(x) / f1(x); 
+cout << "1" << "," << x << "," << w << "," << "\n\n"; 
+OutStream << "1" << "," << x << "," << w << "," << "\n\n"; 
+while (fabs(w - x) < epsilon); 
+{ for (int i = 2; i < s; i++) 
+{ 
+x = w; 
+w = x - f(x) / f1(x); 
+cout << i << "," << w << "," << f(w) << "," << "\n\n"; 
+OutStream << i << "," << w << "," << f(w) << "," << "\n\n"; 
+} 
+} 
+cout << "please enter your guess answer for the positive root of polynomial 179.53x⁶ - 436.85x⁴ + 257.32x² - 0.001" << "\n\n"; 
+cin >> x; 
+if ((x == 0) || (x<0)) 
+{ 
+cout << "the number you guess should not equal to 0 and less than 0, programming terminating \n"; 
+} 
+else 
+w = x - c(x) / c1(x); 
+cout << "1" << "," << x << "," << w << "," << "\n\n"; 
+OutStream << "1" << "," << x << "," << w << "," << "\n\n"; 
+while (fabs(w - x) < epsilon); 
+{ 
+for (int i = 2; i < s; i++) 
+{ 
+x = w; 
+w = x - c(x) / c1(x); 
+cout << i << "," << w << "," << c(w) << "," << "\n\n"; 
+OutStream << i << "," << w << "," << c(w) << "," << "\n\n"; 
+} 
+} 
+cout << "please enter other guess answer to calculate other positive root of 179.53x⁶ - 436.85x⁴ + 257.32x² - 0.001 \n"; 
+cin >> a; 
+if ((a == 0) || (a<0)) 
+{ 
+cout << "the number you guess should not equal to 0 or less than 0, programming terminating \n"; 
+} 
+else 
+w = a - c(a) / c1(a); 
+cout << "1" << "," << a << "," << w << "," << "\n\n"; 
+OutStream << "1" << "," << a << "," << w << "," << "\n\n"; 
+while (fabs(w - a) < epsilon); 
+{ 
+for (int i = 2; i < s; i++) 
+{ 
+a = w; 
+w = a - c(a) / c1(a); 
+cout << i << "," << w << "," << c(w) << "," << "\n\n"; 
+OutStream << i << "," << w << "," << c(w) << "," << "\n\n"; 
+} 
+} 
+cout << "please enter the third guess answer to calculate other positive root of 179.53x⁶ - 436.85x⁴ + 257.32x² - 0.001\n"; 
+cin >> b; 
+if ((b == 0) || (b<0)) 
+{ 
+cout << "the number you guess should not equal to 0 or less than 0, programming terminating \n"; 
+} 
+else 
+w = b - c(b) / c1(b); 
+cout << "1" << "," << b << "," << w << "," << "\n\n"; 
+OutStream << "1" << "," << b << "," << w << "," << "\n\n"; 
+while (fabs(w - b) < epsilon); 
+{ 
+for (int i = 2; i < s; i++) 
+{ 
+b = w; 
+w = b - c(b) / c1(b); 
+cout << i << "," << w << "," << c(w) << "," << "\n\n"; 
+OutStream << i << "," << w << "," << c(w) << "," << "\n\n"; 
+} 
+} 
+cout << "The information has been written to your file. \n"; 
+OutStream.close(); 
+cout << "Type a character when done.\n"; 
+cin >> zzz; 
+return (0); 
+}
+
